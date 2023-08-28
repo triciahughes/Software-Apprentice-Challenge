@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
-// import "./App.css";
 import "./index.css";
 import { useState, useEffect } from "react";
+import Card from "./comps/card";
 
 function App() {
   const [data, setData] = useState([]);
@@ -47,9 +46,16 @@ function App() {
   }
 
   return (
-    <div className='text-primary bg-secondary'>
-      <h1>Apprentice Challenge</h1>
-    </div>
+    <>
+      <div className='text-primary bg-secondary'>
+        <h1>Apprentice Challenge</h1>
+      </div>
+      <div className='container my-12 mx-auto px-4 md:px-12'>
+        <div className='flex flex-wrap -mx-1 lg:-mx-4'>
+          <Card data={data} />
+        </div>
+      </div>
+    </>
   );
 }
 
