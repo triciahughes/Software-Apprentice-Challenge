@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [data, setData] = useState([]);
-  const [sortOrder, setSortOrder] = useState("");
+  const [googleAnalytics, setGoogleAnalytics] = useState([]);
+  const [sortOrder, setSortOrder] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -18,13 +19,31 @@ function App() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       let data = await response.json();
-      setData(data);
+
+      /// Combine All Ads into one Array ///
+      const combinedAds = [
+        ...data.facebook_ads,
+        ...data.twitter_ads,
+        ...data.snapchat_ads,
+      ];
+
+      /// Standardize Data ///
+      const standardizeAds = combinedAds?.map((ad) => {
+        return {
+          campaign: ad.campaign_name || ad.campaign,
+          adset: ad.media_buy_name || ad.ad_group || ad.ad_squad_name,
+          creative: ad.ad_name || ad.image_name || ad.creative_name,
+          impressions: ad.impressions,
+          spend: ad.spend || ad.cost,
+          clicks: ad.clicks || ad.post_clicks,
+        };
+      });
+      /// Set Ad Data State to Standardized Data ///
+      setData(standardizeAds);
     } catch (error) {
       console.error("Fetch error: ", error.message);
     }
   }
-
-  console.log(data);
 
   return (
     <div className='App'>
