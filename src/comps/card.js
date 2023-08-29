@@ -23,7 +23,9 @@ const card = ({ data }) => {
             <div>
               <p className='text-sm text-secondary'>{ad.adset}</p>
               <p className='text-sm text-bold'>{ad.creative}</p>
-              <p className='text-sm text-black'>Results Here</p>
+              <p className='text-sm text-black'>
+                Google Analytics Results: {ad.results}
+              </p>
             </div>
             <div>
               <p className='text-sm text-blue-400'>Clicks: {ad.clicks}</p>
