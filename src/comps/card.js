@@ -2,7 +2,7 @@ import React from "react";
 import { randFloat } from "three/src/math/MathUtils";
 
 const card = ({ data }) => {
-  const renderCards = data.map((ad) => {
+  const renderCards = data?.map((ad) => {
     return (
       <div
         className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3'
@@ -23,12 +23,12 @@ const card = ({ data }) => {
             <div>
               <p className='text-sm text-secondary'>{ad.adset}</p>
               <p className='text-sm text-bold'>{ad.creative}</p>
+              <p className='text-sm text-black'>Results Here</p>
             </div>
             <div>
               <p className='text-sm text-blue-400'>Clicks: {ad.clicks}</p>
               <p className='text-sm text-blue-800'>Imp: {ad.impressions}</p>
               <p className='text-sm text-orange-500'>Spend: {ad.spend}</p>
-              <p className='text-sm text-black'>Results Here</p>
             </div>
           </div>
         </article>
