@@ -6,7 +6,6 @@ import SettingsBtn from "./comps/settingsBtn";
 function App() {
   const [originalData, setOriginalData] = useState([]); // original standardized data from fetch
   const [data, setData] = useState([]);
-  const [googleAnalytics, setGoogleAnalytics] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,10 +40,25 @@ function App() {
           clicks: ad.clicks || ad.post_clicks,
         };
       });
+
+      /// Google Analytics Results ///
+      const adsWithResults = standardizeAds.map((ad) => {
+        const gaData = data.google_analytics.find(
+          (ga) =>
+            ga.utm_campaign === ad.campaign &&
+            ga.utm_medium === ad.adset &&
+            ga.utm_content === ad.creative
+        );
+        if (gaData) {
+          ad.results = gaData.results;
+        }
+        return { ...ad, results: gaData?.results || 0 };
+      });
+
       /// Set Ad Data State to Standardized Data ///
-      setData(standardizeAds);
+      setData(adsWithResults);
       /// Set Original Data State to Standardized Data ///
-      setOriginalData(standardizeAds);
+      setOriginalData(adsWithResults);
     } catch (error) {
       console.error("Fetch error: ", error.message);
     }
