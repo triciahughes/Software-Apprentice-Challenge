@@ -85,6 +85,11 @@ function App() {
     sortFunction();
   }, [sortOrder]);
 
+  /// Search Functionality ///
+  const searchResults = data.filter((ad) => {
+    return ad.campaign.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <>
       <div className='text-primary bg-secondary'>
@@ -92,14 +97,23 @@ function App() {
       </div>
       <div></div>
       <div className='container my-12 mx-auto px-4 md:px-12'>
-        <SettingsBtn
-          handleSortClick={handleSortClick}
-          showSettings={showSettings}
-          handleSortOrder={handleSortOrder}
-          sortOrder={sortOrder}
-        />
+        <div className='flex space-x-10'>
+          <SettingsBtn
+            handleSortClick={handleSortClick}
+            showSettings={showSettings}
+            handleSortOrder={handleSortOrder}
+            sortOrder={sortOrder}
+          />
+          <input
+            className='bg-primary rounded-lg w-2/5 py-2 px-4 text-secondary leading-tight focus:outline-none focus:bg-white focus:border-primary'
+            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchTerm}
+            type='text'
+            placeholder='Search...'
+          />
+        </div>
         <div className='flex flex-wrap -mx-1 lg:-mx-4'>
-          <Card data={data} />
+          <Card data={searchResults} />
         </div>
       </div>
     </>
