@@ -1,7 +1,7 @@
 import "./index.css";
 import { useState, useEffect } from "react";
 import Card from "./comps/card";
-import SettingsBtn from "./comps/settingsBtn";
+import SortBtns from "./comps/sortBtns";
 
 function App() {
   const [originalData, setOriginalData] = useState([]); // original standardized data from fetch
@@ -105,21 +105,29 @@ function App() {
   });
 
   return (
-    <>
-      <div className='text-primary bg-secondary'>
-        <h1>Apprentice Challenge</h1>
-      </div>
+    <div>
+      <header className='App'>
+        <h1>
+          Apprentice Challenge Completed By{" "}
+          <a
+            href='https://www.linkedin.com/in/tricia-hughes/'
+            className='text-primary font-bold underline decoration-1 underline-offset-2 hover:text-secondary'
+          >
+            Tricia Hughes
+          </a>
+        </h1>
+      </header>
       <div></div>
       <div className='container my-12 mx-auto px-4 md:px-12'>
-        <div className='flex space-x-10'>
-          <SettingsBtn
+        <div className='relative flex space-x-5'>
+          <SortBtns
             handleSortClick={handleSortClick}
             showSettings={showSettings}
             handleSortOrder={handleSortOrder}
             sortOrder={sortOrder}
           />
           <input
-            className='bg-primary rounded-lg w-2/5 py-2 px-4 text-secondary leading-tight focus:outline-none focus:bg-white focus:border-primary'
+            className='bg-secondary border border-sky-400 rounded-full w-2/5 py-1 px-4 text-secondary leading-tight hover:bg-primary focus:outline-none focus:bg-white focus:border-primary'
             onChange={(e) => setSearchTerm(e.target.value)}
             value={searchTerm}
             type='text'
@@ -130,7 +138,7 @@ function App() {
           <Card data={searchResults} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
